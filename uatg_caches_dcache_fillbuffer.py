@@ -6,7 +6,7 @@ from typing import Dict, List, Union, Any
 import re
 import os
 import random
-class uatg_caches_dcache_fill(IPlugin):
+class uatg_caches_dcache_fillbuffers(IPlugin):
 	
 	def __init__(self) -> None:
 		super().__init__()
