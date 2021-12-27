@@ -5,7 +5,7 @@ This module contains python codes to generate assembly files for testing the dat
 Here we test the following:
        1. Fill the cache completely based on the size mentioned in the core64.yaml input
        2. Try to fill the fill-buffer completely.
-       3. Perform a load/store hit in the Fill-buffer.
+       3. Perform types of load/store access.
        
 Contributors:
 Charitha T S <ts.charitha1@gmail.com>,Adithi K<>.
