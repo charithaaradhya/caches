@@ -10,10 +10,7 @@ class uatg_caches_dcache_fill(IPlugin):
 	
 	def __init__(self) -> None:
 		super().__init__()
-        	self.sets=64
-        	self.word_size=8
-        	self.block_size=8
-        	self.ways=4
+        	
         def execute(self,core_yaml,isa_yaml):
         	d_cache=core_yaml['dcache_configuration']
         	d_cache_en=d_cache['instantiate']
@@ -21,6 +18,7 @@ class uatg_caches_dcache_fill(IPlugin):
         	self.word_size=d_cache['word_size']
         	self.block_size=d_cache['block_size']
         	self.ways=d_cache['ways']
+		
         def generate_asm(self) -> List[Dict[str, Union[Union[str, list], Any]]]:
         	asm_main="main:\n\tli t1, 8000\n\tli t2, 0xAAAAAAAAAAAAAAAA\n\tli t4, 0x1111"
         	asm_byte="check_byte:\n\tli t0, 0xAA\n\tsb t2, {0}(t1)\n\tlbu t3, {0}(t1)\n\tbne a2, t3, end\n\tli t0,0xFFFFFFFFFFFFFFAA\n\tld t3, {0}(t1) \n\tbne t3, t0, end\n".format(self._word_size * self._block_size * 1)
