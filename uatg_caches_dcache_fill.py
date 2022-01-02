@@ -28,7 +28,7 @@ class uatg_caches_dcache_fill(IPlugin):
         	asm_loop1="loop1:\n\tsd  t1,0(t0)\n\taddi  t0,t0,64\n\taddi t2,t2,64\n\tbeq  t2,t4,loop2\n\tj loop1\n"
         	asm_loop2="loop2:\n\taddi t3,t3,1\n\tli t2,0\n\tbeq  t3,{0},end\n".format(self.sets)
         	asm_end="\n\tend:\n\tnop\n"
-        	asm=asm_main+asm_loop1+asm_loop2+asm_end
+        	asm_code=asm_main+asm_loop1+asm_loop2+asm_end
         	compile_macros=[]
         	asm_data = '\nrvtest_data:\n'
                 for i in range (self.block_size * self.sets * self.ways*2):
@@ -39,11 +39,11 @@ class uatg_caches_dcache_fill(IPlugin):
                     'asm_sig': '',
                     'compile_macros': compile_macros}]
                     
-       def check_log(self, log_file_path, reports_dir)-> Bool:
+       	def check_log(self, log_file_path, reports_dir)-> Bool:
        		return false
        	
        	
        	
-       def def generate_covergroups(self, config_file) -> Str:
+         def generate_covergroups(self, config_file) -> Str:
        		sv = ""
         	return sv       
