@@ -24,6 +24,7 @@ class uatg_caches_dcache_fillbuffers(IPlugin):
         	self.block_size=d_cache['block_size']
         	self.ways=d_cache['ways']
         	self.fb_size=d_cache['fb_size']
+		return True
         	
         def generate_asm(self) -> List[Dict[str, Union[Union[str, list], Any]]]:
         	asm_main="\n\tfence\n\tli t0, 77\n\tli t3, {0}\n\tla t2, rvtest_data" .format(self.sets * self.ways)
@@ -47,7 +48,7 @@ class uatg_caches_dcache_fillbuffers(IPlugin):
                     'compile_macros': compile_macros}]
                     
          def check_log(self, log_file_path, reports_dir)-> Bool:
-      		return false
+      		return False
        	
          def generate_covergroups(self, config_file) -> Str:
         	sv = ""
