@@ -25,8 +25,7 @@ class uatg_caches_dcache_fill(IPlugin):
 		
         def generate_asm(self) -> List[Dict[str, Union[Union[str, list], Any]]]:
         	asm_main="\tfence\n\tli t1,77\n\tla x10,rvtest_data\n\tli t4,{0}\n".format(self.word_size*self .block_size*self .ways)
-        	asm_load="load:\n\tlw t2,t0(X10)\n\taddi t0,t0,32\n\tbeq  t4,t0,loop2\n\tj load\nfence\n"
-        	asm_loop1="loop1:\n\tsd  t1,t0(x10)\n\taddi  t0,t0,64\n\tbeq  t2,t4,loop2\n\tj loop1\n"
+        	asm_loop1="loop1:\n\tld t2,t0(X10)\n\tnop\n\tsd  t1,t0(x10)\n\taddi  t0,t0,64\n\tbeq  t2,t4,loop2\n\tj loop1\n"
         	asm_loop2="loop2:\n\taddi t3,t3,1\n\tli t2,0\n\tbeq  t3,{0},end\n\tj loop1\n".format(self.sets)
         	asm_end="end:\n\tnop\n"
         	asm_code=asm_main+asm_load+asm_loop1+asm_loop2+asm_end
