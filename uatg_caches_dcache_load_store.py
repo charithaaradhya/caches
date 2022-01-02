@@ -18,6 +18,7 @@ class uatg_caches_dcache_load_store(IPlugin):
         	self.word_size=d_cache['word_size']
         	self.block_size=d_cache['block_size']
         	self.ways=d_cache['ways']
+		return True
 		
         def generate_asm(self) -> List[Dict[str, Union[Union[str, list], Any]]]:
         	asm_main="main:\n\tli t1, 8000\n\tli t2, 0xAAAAAAAAAAAAAAAA\n\tli t4, 0x1111"
@@ -38,7 +39,7 @@ class uatg_caches_dcache_load_store(IPlugin):
                     'compile_macros': compile_macros}]
                     
        def check_log(self, log_file_path, reports_dir)-> Bool:
-       		return false
+       		return False
        	
        def def generate_covergroups(self, config_file) -> Str:
        		sv = ""
