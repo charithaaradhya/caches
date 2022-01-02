@@ -21,6 +21,7 @@ class uatg_caches_dcache_fill(IPlugin):
         	self.word_size=d_cache['word_size']
         	self.block_size=d_cache['block_size']
         	self.ways=d_cache['ways']
+		return True
 		
         def generate_asm(self) -> List[Dict[str, Union[Union[str, list], Any]]]:
         	asm_main="\tfence\n\tli t1,77\n\tla t0,rvtest_data\n\tli t4,{0}\n\t".format(self.word_size*self .block_size*self .ways)
@@ -40,7 +41,7 @@ class uatg_caches_dcache_fill(IPlugin):
                     'compile_macros': compile_macros}]
                     
        	def check_log(self, log_file_path, reports_dir)-> Bool:
-       		return false
+       		return False
        	
        	
        	
