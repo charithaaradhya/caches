@@ -21,10 +21,10 @@ class uatg_caches_dcache_load_store(IPlugin):
 		
         def generate_asm(self) -> List[Dict[str, Union[Union[str, list], Any]]]:
         	asm_main="main:\n\tli t1, 8000\n\tli t2, 0xAAAAAAAAAAAAAAAA\n\tli t4, 0x1111"
-        	asm_byte="check_byte:\n\tli t0, 0xAA\n\tsb t2, {0}(t1)\n\tlbu t3, {0}(t1)\n\tbne a2, t3, end\n\tli t0,0xFFFFFFFFFFFFFFAA\n\tld t3, {0}(t1) \n\tbne t3, t0, end\n".format(self._word_size * self._block_size * 1)
-        	asm_half_word="check_half_word:\n\tli a2, 0xAAAA\n\tsh t2, {0}(t1)\n\t lhu t3, {0}(t1)\n\t bne t0, t3, end\n\tli t0, 0xFFFFFFFFFFFFAAAA\n\tlh t3, {0}(t1)\n\tbne t3, a2, end\n"   .format(self._word_size * self._block_size * 2)
-        	asm_word="check_word:\n\tli a2, 0xAAAAAAAA\n\tsw t2, {0}(t1)\n\t lwu t3, {0}(t1)\n\t bne a2, t3, end\n\tli a2, 0xFFFFFFFFAAAAAAAA\n\tlw t3, {0}(t1)\n\tbne t3, a2, end\n".format(self._word_size * self._block_size * 3)
-        	asm_double="check_double:\n\tli a2, 0xAAAAAAAAAAAAAAAA\n\tsd t2, {0}(t1)\n\tld t3, {0}(t1)\n\tbne a2, t3, end\n\tli a2, 0xAAAAAAAAAAAAAAAA\n\tld t3, {0}(t1) \n\tbne t3, a2, end\n".format(self._word_size * self._block_size * 4)
+        	asm_byte="check_byte:\n\tli t0, 0xAA\n\tsb t2, {0}(t1)\n\tlbu t3, {0}(t1)\n\tbne a2, t3, end\n\tli t0,0xFFFFFFFFFFFFFFAA\n\tld t3, {0}(t1) \n\tbne t3, t0, end\n".format(self.word_size * self.block_size * 1)
+        	asm_half_word="check_half_word:\n\tli a2, 0xAAAA\n\tsh t2, {0}(t1)\n\t lhu t3, {0}(t1)\n\t bne t0, t3, end\n\tli t0, 0xFFFFFFFFFFFFAAAA\n\tlh t3, {0}(t1)\n\tbne t3, a2, end\n"   .format(self.word_size * self.block_size * 2)
+        	asm_word="check_word:\n\tli a2, 0xAAAAAAAA\n\tsw t2, {0}(t1)\n\t lwu t3, {0}(t1)\n\t bne a2, t3, end\n\tli a2, 0xFFFFFFFFAAAAAAAA\n\tlw t3, {0}(t1)\n\tbne t3, a2, end\n".format(self.word_size * self.block_size * 3)
+        	asm_double="check_double:\n\tli a2, 0xAAAAAAAAAAAAAAAA\n\tsd t2, {0}(t1)\n\tld t3, {0}(t1)\n\tbne a2, t3, end\n\tli a2, 0xAAAAAAAAAAAAAAAA\n\tld t3, {0}(t1) \n\tbne t3, a2, end\n".format(self.word_size * self.block_size * 4)
 		asm_end="end:\n\tnop\n\tfence.i\n""
         	asm=asm_main+asm_byte+asm_half_word+asm_word+asm_double+asm_end
         	compile_macros=[]
