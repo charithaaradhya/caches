@@ -41,10 +41,10 @@ class uatg_caches_dcache_fillbuffers(IPlugin):
                 for i in range (self.block_size * self.sets * self.ways*2):
             		asm_data += "\t.word 0x{0:08x}\n".format(random.randrange(16**8))
 
-                return({'asm_code': asm_code,
+                return[{'asm_code': asm_code,
                     'asm_data': asm_data,
                     'asm_sig': '',
-                    'compile_macros': compile_macros})
+                    'compile_macros': compile_macros}]
                     
          def check_log(self, log_file_path, reports_dir)-> Bool:
       		return false
