@@ -32,19 +32,14 @@ class uatg_caches_dcache_load_store(IPlugin):
                 for i in range (self.block_size * self.sets * self.ways*2):
             		asm_data += "\t.word 0x{0:08x}\n".format(random.randrange(16**8))
 
-                return({'asm_code': asm_code,
+                return[{'asm_code': asm_code,
                     'asm_data': asm_data,
                     'asm_sig': '',
-                    'compile_macros': compile_macros})
+                    'compile_macros': compile_macros}]
                     
-       def check_log(self, log_file_path, reports_dir):
-       	f=open(log_file_path,'r')
-       	log_file=f.read()
-       	f.close()
-       	test_report={"cache_dcache_dcache_load_Store:"{'Doc':"ASM should perform load and store operationson cache ",'Execution status':''}}
+       def check_log(self, log_file_path, reports_dir)-> Bool:
+       		return false
        	
-       	
-       	
-       def def generate_covergroups(self, config_file) -> str:
-       	sv = ""
+       def def generate_covergroups(self, config_file) -> Str:
+       		sv = ""
         	return sv       
