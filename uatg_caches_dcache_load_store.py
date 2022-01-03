@@ -22,10 +22,10 @@ class uatg_caches_dcache_load_store(IPlugin):
 		
         def generate_asm(self) -> List[Dict[str, Union[Union[str, list], Any]]]:
         	asm_main="main:\n\tla x10,rvtest_data\n\tlui t2, 0xAAAAB\n\t addi t2,t2,xAAA\n"
-        	asm_byte="check_byte:\n\tli t0, 0xAA\n\tsb t2, {0}(x10)\n\tlbu t3, {0}(x10)\n\tbne a2, t3, end\n\tli t0, 0xFFFFFFFFFFFFFFAA \n\tlb t3, {0}(x10) \n\tbne t3, t0, end\n".format(64* 0)
-        	asm_half_word="check_half_word:\n\tlui a2, 0xAAAA\n\tsh t2, {0}(x10)\n\t lhu t3, {0}(x10)\n\t bne t0, t3, end\n\tli t0, 0xFFFFFFFFFFFFAAAA\n\tlh t3, {0}(x10)\n\tbne t3, a2, end\n".format(64 * 1)
-        	asm_word="check_word:\n\tlui a2, 0xAAAAA\n\tlui a2,0XAA\n\tsw t2, {0}(x10)\n\t lwu t3, {0}(x10)\n\t bne a2, t3, end\n\tli a2, 0xFFFFFFFFAAAAAAAA\n\tlw t3, {0}(x10)\n\tbne t3, a2, end\n".format(64 * 2)
-        	asm_double="check_double:\n\tlui a2, 0xAAAAB\n\taddi a2,a2,0XAAA \n\tsd t2, {0}(x10)\n\tld t3, {0}(x10)\n\tbne a2, t3, end\n\tli a2, 0xAAAAAAAAAAAAAAAA\n\tld t3, {0}(x10) \n\tbne t3, a2, end\n".format(64 * 3)
+        	asm_byte="check_byte:\n\tli t0, 0xAA\n\tsb t2, {0}(x10)\n\tlbu t3, {0}(x10)\n\tbne a2, t3, end\n\tlui t0, 0xFFFFE \n\t addi t0,0XFAA\n\tlb t3, {0}(x10) \n\tbne t3, t0, end\n".format(64* 0)
+        	asm_half_word="check_half_word:\n\tlui t0, 0xAAAA\n\tsh t2, {0}(x10)\n\t lhu t3, {0}(x10)\n\t bne t0, t3, end\n\tlui t0, 0xFFFFB \n\t addi t0,0XAAA\n\tlh t3, {0}(x10)\n\tbne t3, t0, end\n".format(64 * 1)
+        	asm_word="check_word:\n\tlui t0, 0xAAAAB\n\taddi t0,0XAAA\n\tsw t2, {0}(x10)\n\t lwu t3, {0}(x10)\n\t bne t0, t3, end\n\tlui t0, 0xAAAAB \n\t addi t0,0XAAA\n\tlw t3, {0}(x10)\n\tbne t3, t0, end\n".format(64 * 2)
+        	asm_double="check_double:\n\tlui t0, 0xAAAAB\n\taddi t0,t0,0XAAA \n\tsd t2, {0}(x10)\n\tlw t3, {0}(x10)\n\tlw t4,224(x10)\n\tbne t0, t3, end \n\t \n\tli t0, 0xAAAAAAAAAAAAAAAA\n\tld t3, {0}(x10) \n\tbne t3, t0, end\n".format(64 * 3)
         	asm_end="end:\n\tnop\n\tfence.i\n"
         	asm_code=asm_main+asm_byte+asm_half_word+asm_word+asm_double+asm_end
         	compile_macros=[]
