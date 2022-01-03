@@ -13,8 +13,17 @@ Here we test the following:
       >this will continue until all the sets(64sets) are filled.
       
  2. Try to fill the fill-buffer completely:
-       >first we fill the cache completely
-       >then we fill the fill buffer using store operations
+       >First we fill the cache completely 
+       >Then we try to fill the fill-buffer through a series of store operation 
+       Without any chance for opportunistic-release 
+ 3. Perform types of load/store access.
+       >We load and store one byte signed and unsigned of data
+       >We load and store half word of signed and unsigned data
+       >We load and store a word of signed and unsigned data
+       >We load and store double word of signed and unsigned data
+
+
+
        
        
        
