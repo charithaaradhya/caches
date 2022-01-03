@@ -25,16 +25,18 @@ class uatg_caches_dcache_fill(IPlugin):
 		
         def generate_asm(self) -> List[Dict[str, Union[Union[str, list], Any]]]:
         	asm_main="\tfence\n\tli t1,77\n\tla x10,rvtest_data\n\tli t4,{0}\n".format(self.word_size*self .block_size*self .ways)
-        	asm_loop1="loop1:\n\tld t2,t0(X10)\n\tnop\n\tsd  t1,t0(x10)\n\taddi  t0,t0,64\n\tbeq  t2,t4,loop2\n\tj loop1\n"
-        	asm_loop2="loop2:\n\taddi t3,t3,1\n\tli t2,0\n\tbeq  t3,{0},end\n\tj loop1\n".format(self.sets)
+        	asm_loop1="loop1:\n\tld t2,t8(X10)\n\tsd  t1,t8(x10)\n\taddi  t8,t8,64\n\tbeq  t8,t4,loop2\n\tj loop1\n"
+        	asm_loop2="loop2:\n\taddi t3,t3,1\n\tli t8,0\n\tbeq  t3,{0},end\n\tj loop1\n".format(self.sets)
         	asm_end="end:\n\tnop\n"
-        	asm_code=asm_main+asm_load+asm_loop1+asm_loop2+asm_end
+        	asm_code=asm_main+asm_loop1+asm_loop2+asm_end
         	compile_macros=[]
         	asm_data = "\nrvtest_data:\n"
         	for i in range (self.block_size * self.sets * self.ways*2):
         		asm_data += "\t.word 0x{0:08x}\n".format(random.randrange(2**32))
         	
         	return [{'asm_code': asm_code,'asm_data': asm_data,'asm_sig': '','compile_macros': compile_macros}]
+        
+        
                     
        	def check_log(self, log_file_path, reports_dir)-> Bool:
        		return False
